@@ -15,8 +15,10 @@
 </head>
 <body>
 <div class="wrapper">
+    <div th:replace="menu :: main-menu"></div>
     <div class="container">
         <h3>Registreeri visiidile</h3>
+        <br/>
         <!--/*@thymesVar id="dentistVisitDTO" type="com.cgi.dentistapp.dto.DentistVisitDTO"*/-->
         <form class="form-horizontal" action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="post">
             <div class="form-group">

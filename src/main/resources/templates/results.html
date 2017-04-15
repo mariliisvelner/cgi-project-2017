@@ -6,11 +6,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
 </head>
 <body>
 <div class="wrapper">
+    <div th:replace="menu :: main-menu"></div>
     <div class="container-fluid">
-        <h4 th:text="#{registreerimine.ok}">registreerimine.ok</h4>
+        <h4 th:text="#{registreerimine.ok}"></h4>
     </div>
 </div>
 </body>
