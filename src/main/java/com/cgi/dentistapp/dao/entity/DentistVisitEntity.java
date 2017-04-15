@@ -1,6 +1,7 @@
 package com.cgi.dentistapp.dao.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -14,19 +15,31 @@ public class DentistVisitEntity {
     @Column(name = "dentist_name")
     private String dentistName;
 
-    @Column(name = "visit_time")
-    private Date visitTime;
+    @Column(name = "visit_date")
+    private Date visitDate;
 
     @Column(name = "physician_name")
     private String physicianName;
 
+    @Column(name = "visit_date_time")
+    private Timestamp visitDateTime;
+
+    public Timestamp getVisitDateTime() {
+        return visitDateTime;
+    }
+
+    public void setVisitDateTime(Timestamp visitDateTime) {
+        this.visitDateTime = visitDateTime;
+    }
+
     public DentistVisitEntity() {
     }
 
-    public DentistVisitEntity(String dentistName, Date visitTime, String physicianName) {
+    public DentistVisitEntity(String dentistName, Date visitDate, String physicianName, Timestamp visitDateTime) {
         this.setDentistName(dentistName);
-        this.setVisitTime(visitTime);
+        this.setVisitDate(visitDate);
         this.setPhysicianName(physicianName);
+        this.setVisitDateTime(visitDateTime);
     }
 
     public String getDentistName() {
@@ -45,12 +58,12 @@ public class DentistVisitEntity {
         this.id = id;
     }
 
-    public Date getVisitTime() {
-        return visitTime;
+    public Date getVisitDate() {
+        return visitDate;
     }
 
-    public void setVisitTime(Date visitTime) {
-        this.visitTime = visitTime;
+    public void setVisitDate(Date visitDate) {
+        this.visitDate = visitDate;
     }
 
     public String getPhysicianName() {
@@ -60,4 +73,12 @@ public class DentistVisitEntity {
     public void setPhysicianName(String physicianName) {
         this.physicianName = physicianName;
     }
+
+//    public String toString(){
+//        return "DentistVisitEntity(" + this.getId().toString() + ", "
+//                                     + this.getDentistName() + ", "
+//                                     + this.getVisitDate().toString() + ", "
+//                                     + this.getPhysicianName() + ", "
+//                                     + this.getVisitDateTime().toString() +")";
+//    }
 }
