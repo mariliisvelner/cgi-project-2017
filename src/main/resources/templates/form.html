@@ -6,8 +6,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="jquery.datetimepicker.min.css"/>
     <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery-ui.min.js"></script>
     <script type="text/javascript" src="bootstrap.min.js"></script>
+    <script src="jquery.datetimepicker.full.min.js"></script>
+    <script src="form.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -16,28 +20,35 @@
         <!--/*@thymesVar id="dentistVisitDTO" type="com.cgi.dentistapp.dto.DentistVisitDTO"*/-->
         <form class="form-horizontal" action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="post">
             <div class="form-group">
-                <label class="col-form-label col-sm-2" for="dentist_name" th:text="#{hambaarsti.nimi}"></label>
+                <label class="col-form-label col-sm-2" for="dentistName" th:text="#{hambaarsti.nimi}"></label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="text" th:field="*{dentistName}" id="dentist_name"/>
+                    <input class="form-control" type="text" th:field="*{dentistName}" id="dentistName"/>
                 </div>
                 <span th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}"></span>
             </div>
             <div class="form-group">
                 <label class="col-form-label col-sm-2" for="visit_time" th:text="#{visiidi.kuupaev}"></label>
                 <div class="col-sm-10">
-                    <input class="form-control" type="text" th:field="*{visitTime}" id="visit_time"/>
+                    <input class="form-control" type="text" th:field="*{visitDate}" id="visit_time"/>
                 </div>
-                <span th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}"></span>
+                <span th:if="${#fields.hasErrors('visitDate')}" th:errors="*{visitDate}"></span>
             </div>
             <div class="form-group">
-                <label class="col-form-label col-sm-2" for="physician_name" th:text="#{perearsti.nimi}"></label>
+                <label class="col-form-label col-sm-2" for="physicianName" th:text="#{perearsti.nimi}"></label>
                 <div class="col-sm-10">
-                    <select class="form-control" th:field="*{physicianName}" id="physician_name">
-                        <option value="1">Perearst 1</option>
-                        <option value="2">Perearst 2</option>
+                    <select class="form-control" th:field="*{physicianName}" id="physicianName">
+                        <option value="Perearst 1">Perearst 1</option>
+                        <option value="Perearst 2">Perearst 2</option>
                     </select>
                 </div>
                 <span th:if="${#fields.hasErrors('physicianName')}" th:errors="*{physicianName}"></span>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label col-sm-2" for="visitDateTime" th:text="#{visiidi.aeg}"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" th:field="*{visitDateTime}" id="visitDateTime"/>
+                </div>
+                <span th:if="${#fields.hasErrors('visitDateTime')}" th:errors="*{visitDateTime}"></span>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-6 col-sm-6 col-lg-offset-3 col-lg-9">
