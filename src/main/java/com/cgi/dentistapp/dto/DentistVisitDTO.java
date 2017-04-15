@@ -5,7 +5,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * Created by serkp on 2.03.2017.
@@ -14,10 +13,6 @@ public class DentistVisitDTO {
 
     @Size(min = 1, max = 50)
     private String dentistName;
-
-    @NotNull
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private Date visitDate;
 
     @Size(min = 1, max = 50)
     private String physicianName;
@@ -45,9 +40,8 @@ public class DentistVisitDTO {
     public DentistVisitDTO() {
     }
 
-    public DentistVisitDTO(String dentistName, Date visitDate, String physicianName, LocalDateTime visitDateTime) {
+    public DentistVisitDTO(String dentistName, String physicianName, LocalDateTime visitDateTime) {
         this.dentistName = dentistName;
-        this.visitDate = visitDate;
         this.physicianName = physicianName;
         this.visitDateTime = visitDateTime;
     }
@@ -60,11 +54,4 @@ public class DentistVisitDTO {
         this.dentistName = dentistName;
     }
 
-    public Date getVisitDate() {
-        return visitDate;
-    }
-
-    public void setVisitDate(Date visitDate) {
-        this.visitDate = visitDate;
-    }
 }

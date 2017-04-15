@@ -2,7 +2,6 @@ package com.cgi.dentistapp.dao.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
 @Table(name = "dentist_visit")
@@ -14,9 +13,6 @@ public class DentistVisitEntity {
 
     @Column(name = "dentist_name")
     private String dentistName;
-
-    @Column(name = "visit_date")
-    private Date visitDate;
 
     @Column(name = "physician_name")
     private String physicianName;
@@ -35,9 +31,8 @@ public class DentistVisitEntity {
     public DentistVisitEntity() {
     }
 
-    public DentistVisitEntity(String dentistName, Date visitDate, String physicianName, Timestamp visitDateTime) {
+    public DentistVisitEntity(String dentistName, String physicianName, Timestamp visitDateTime) {
         this.setDentistName(dentistName);
-        this.setVisitDate(visitDate);
         this.setPhysicianName(physicianName);
         this.setVisitDateTime(visitDateTime);
     }
@@ -58,13 +53,6 @@ public class DentistVisitEntity {
         this.id = id;
     }
 
-    public Date getVisitDate() {
-        return visitDate;
-    }
-
-    public void setVisitDate(Date visitDate) {
-        this.visitDate = visitDate;
-    }
 
     public String getPhysicianName() {
         return physicianName;
@@ -74,11 +62,4 @@ public class DentistVisitEntity {
         this.physicianName = physicianName;
     }
 
-//    public String toString(){
-//        return "DentistVisitEntity(" + this.getId().toString() + ", "
-//                                     + this.getDentistName() + ", "
-//                                     + this.getVisitDate().toString() + ", "
-//                                     + this.getPhysicianName() + ", "
-//                                     + this.getVisitDateTime().toString() +")";
-//    }
 }

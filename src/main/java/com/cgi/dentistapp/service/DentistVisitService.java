@@ -25,12 +25,10 @@ public class DentistVisitService {
     public void addVisit(DentistVisitDTO dentistVisitDTO) {
         System.out.println(dentistVisitDTO.getVisitDateTime());
         DentistVisitEntity visit = new DentistVisitEntity(dentistVisitDTO.getDentistName(),
-                                                          dentistVisitDTO.getVisitDate(),
                                                           dentistVisitDTO.getPhysicianName(),
                                                           localDateTimeToTimestamp(dentistVisitDTO.getVisitDateTime()));
         System.out.println(visit.getId());
         System.out.println(visit.getDentistName());
-        System.out.println(visit.getVisitDate());
         System.out.println(visit.getVisitDateTime());
         System.out.println(visit.getPhysicianName());
         dentistVisitDao.create(visit);

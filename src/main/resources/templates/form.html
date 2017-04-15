@@ -27,13 +27,6 @@
                 <span th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}"></span>
             </div>
             <div class="form-group">
-                <label class="col-form-label col-sm-2" for="visit_time" th:text="#{visiidi.kuupaev}"></label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="text" th:field="*{visitDate}" id="visit_time"/>
-                </div>
-                <span th:if="${#fields.hasErrors('visitDate')}" th:errors="*{visitDate}"></span>
-            </div>
-            <div class="form-group">
                 <label class="col-form-label col-sm-2" for="physicianName" th:text="#{perearsti.nimi}"></label>
                 <div class="col-sm-10">
                     <select class="form-control" th:field="*{physicianName}" id="physicianName">
