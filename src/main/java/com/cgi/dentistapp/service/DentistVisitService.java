@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -23,23 +23,23 @@ public class DentistVisitService {
     }
 
     public void addVisit(DentistVisitDTO dentistVisitDTO) {
-        System.out.println(dentistVisitDTO.getVisitDateTime());
         DentistVisitEntity visit = new DentistVisitEntity(dentistVisitDTO.getDentistName(),
                                                           dentistVisitDTO.getPhysicianName(),
-                                                          localDateTimeToTimestamp(dentistVisitDTO.getVisitDateTime()));
-        System.out.println(visit.getId());
-        System.out.println(visit.getDentistName());
-        System.out.println(visit.getVisitDateTime());
-        System.out.println(visit.getPhysicianName());
+                                                          Timestamp.valueOf(dentistVisitDTO.getVisitDateTime()));
         dentistVisitDao.create(visit);
     }
 
-    public List<DentistVisitEntity> listVisits () {
-        return dentistVisitDao.getAllVisits();
+    public List<DentistVisitDTO> listVisits () {
+        return dentistVisitDao.getAllVisits().stream()
+                .map(e -> new DentistVisitDTO(
+                        e.getDentistName(),
+                        e.getPhysicianName(),
+                        e.getVisitDateTime().toLocalDateTime()
+                ))
+                .collect(Collectors.toList());
     }
 
-    public Timestamp localDateTimeToTimestamp(LocalDateTime localDateTime){
-        return Timestamp.valueOf(localDateTime);
-    }
+
+
 
 }

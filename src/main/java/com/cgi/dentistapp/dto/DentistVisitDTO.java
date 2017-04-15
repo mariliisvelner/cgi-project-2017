@@ -18,7 +18,7 @@ public class DentistVisitDTO {
     private String physicianName;
 
     @NotNull
-    @DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime visitDateTime;
 
     public LocalDateTime getVisitDateTime() {
