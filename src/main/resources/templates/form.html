@@ -1,0 +1,23 @@
+<html>
+<body>
+<form action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="post">
+    <table>
+        <tr>
+            <td><p th:text="#{arsti.nimi}">arsti.nimi</p></td>
+            <td><input type="text" th:field="*{dentistName}"/></td>
+            <td th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}">Nime viga</td>
+        </tr>
+        <tr>
+            <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
+            <td><input type="text" th:field="*{visitTime}"/></td>
+            <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">Kuupäeva viga</td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" th:text="#{registreeri.visiidile}"></button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
