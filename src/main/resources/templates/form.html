@@ -1,23 +1,41 @@
-<html>
+<!DOCTYPE html>
+<html lang="et" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Visit booking</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
+</head>
 <body>
-<form action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="post">
-    <table>
-        <tr>
-            <td><p th:text="#{arsti.nimi}">arsti.nimi</p></td>
-            <td><input type="text" th:field="*{dentistName}"/></td>
-            <td th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}">Nime viga</td>
-        </tr>
-        <tr>
-            <td><p th:text="#{visiidi.kuupaev}">visiidi.kuupaev</p></td>
-            <td><input type="text" th:field="*{visitTime}"/></td>
-            <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}">Kuupäeva viga</td>
-        </tr>
-        <tr>
-            <td>
-                <button type="submit" th:text="#{registreeri.visiidile}"></button>
-            </td>
-        </tr>
-    </table>
-</form>
+<div class="wrapper">
+    <div class="container">
+        <h3>Registreeri visiidile</h3>
+        <!--/*@thymesVar id="dentistVisitDTO" type="com.cgi.dentistapp.dto.DentistVisitDTO"*/-->
+        <form action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="post">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td><p th:text="#{arsti.nimi}"></p></td>
+                    <td><input type="text" th:field="*{dentistName}"/></td>
+                    <td th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}"></td>
+                </tr>
+                <tr>
+                    <td><p th:text="#{visiidi.kuupaev}"></p></td>
+                    <td><input type="text" th:field="*{visitTime}"/></td>
+                    <td th:if="${#fields.hasErrors('visitTime')}" th:errors="*{visitTime}"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn btn-default" type="submit" th:text="#{registreeri.visiidile}"></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
 </body>
 </html>
