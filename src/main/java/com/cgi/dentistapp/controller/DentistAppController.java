@@ -1,14 +1,13 @@
 package com.cgi.dentistapp.controller;
 
 import com.cgi.dentistapp.dto.DentistVisitDTO;
+import com.cgi.dentistapp.service.DentistVisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
-import com.cgi.dentistapp.service.DentistVisitService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -18,9 +17,13 @@ import javax.validation.Valid;
 @EnableAutoConfiguration
 public class DentistAppController extends WebMvcConfigurerAdapter {
 
+    private final DentistVisitService dentistVisitService;
+
     @Autowired
-    private DentistVisitService dentistVisitService;
-    
+    public DentistAppController(DentistVisitService dentistVisitService) {
+        this.dentistVisitService = dentistVisitService;
+    }
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/results").setViewName("results");
@@ -37,7 +40,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
             return "form";
         }
 
-        dentistVisitService.addVisit(dentistVisitDTO.getDentistName(), dentistVisitDTO.getVisitTime());
+        dentistVisitService.addVisit(dentistVisitDTO);
         return "redirect:/results";
     }
 

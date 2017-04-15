@@ -12,18 +12,30 @@ import java.util.Date;
 public class DentistVisitDTO {
 
     @Size(min = 1, max = 50)
-    String dentistName;
+    private String dentistName;
 
     @NotNull
     @DateTimeFormat(pattern = "dd.MM.yyyy")
-    Date visitTime;
+    private Date visitTime;
+
+    @Size(min = 1, max = 50)
+    private String physicianName;
+
+    public String getPhysicianName() {
+        return physicianName;
+    }
+
+    public void setPhysicianName(String physicianName) {
+        this.physicianName = physicianName;
+    }
 
     public DentistVisitDTO() {
     }
 
-    public DentistVisitDTO(String dentistName, Date visitTime) {
+    public DentistVisitDTO(String dentistName, Date visitTime, String physicianName) {
         this.dentistName = dentistName;
         this.visitTime = visitTime;
+        this.physicianName = physicianName;
     }
 
     public String getDentistName() {

@@ -1,25 +1,29 @@
 package com.cgi.dentistapp.service;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import com.cgi.dentistapp.dao.DentistVisitDao;
+import com.cgi.dentistapp.dao.entity.DentistVisitEntity;
+import com.cgi.dentistapp.dto.DentistVisitDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cgi.dentistapp.dao.DentistVisitDao;
-import com.cgi.dentistapp.dao.entity.DentistVisitEntity;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
 public class DentistVisitService {
 
-    @Autowired
-    private DentistVisitDao dentistVisitDao;
+    private final DentistVisitDao dentistVisitDao;
 
-    public void addVisit(String dentistName, Date visitTime) {
-        DentistVisitEntity visit = new DentistVisitEntity(dentistName, visitTime);
+    @Autowired
+    public DentistVisitService(DentistVisitDao dentistVisitDao) {
+        this.dentistVisitDao = dentistVisitDao;
+    }
+
+    public void addVisit(DentistVisitDTO dentistVisitDTO) {
+        DentistVisitEntity visit = new DentistVisitEntity(dentistVisitDTO.getDentistName(),
+                                                          dentistVisitDTO.getVisitTime(),
+                                                          dentistVisitDTO.getPhysicianName());
         dentistVisitDao.create(visit);
     }
 
