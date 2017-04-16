@@ -3,6 +3,7 @@ package com.cgi.dentistapp.service;
 import com.cgi.dentistapp.dao.DentistVisitDao;
 import com.cgi.dentistapp.dao.entity.DentistVisitEntity;
 import com.cgi.dentistapp.dto.DentistVisitDTO;
+import com.cgi.dentistapp.dto.SearchQueryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,15 @@ public class DentistVisitService {
                 .collect(Collectors.toList());
     }
 
-
+    public List<DentistVisitDTO> getSearchResults(SearchQueryDTO searchQueryDTO){
+        return dentistVisitDao.getSearchResults(searchQueryDTO).stream()
+                .map(e -> new DentistVisitDTO(
+                        e.getDentistName(),
+                        e.getPhysicianName(),
+                        e.getVisitDateTime().toLocalDateTime()
+                ))
+                .collect(Collectors.toList());
+    }
 
 
 }
