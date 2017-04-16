@@ -1,5 +1,8 @@
 package com.cgi.dentistapp.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
@@ -9,6 +12,9 @@ import java.time.LocalDateTime;
 /**
  * Created by serkp on 2.03.2017.
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DentistVisitDTO {
 
     @Size(min = 1, max = 50)
@@ -20,38 +26,5 @@ public class DentistVisitDTO {
     @NotNull
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime visitDateTime;
-
-    public LocalDateTime getVisitDateTime() {
-        return visitDateTime;
-    }
-
-    public void setVisitDateTime(LocalDateTime visitDateTime) {
-        this.visitDateTime = visitDateTime;
-    }
-
-    public String getPhysicianName() {
-        return physicianName;
-    }
-
-    public void setPhysicianName(String physicianName) {
-        this.physicianName = physicianName;
-    }
-
-    public DentistVisitDTO() {
-    }
-
-    public DentistVisitDTO(String dentistName, String physicianName, LocalDateTime visitDateTime) {
-        this.dentistName = dentistName;
-        this.physicianName = physicianName;
-        this.visitDateTime = visitDateTime;
-    }
-
-    public String getDentistName() {
-        return dentistName;
-    }
-
-    public void setDentistName(String dentistName) {
-        this.dentistName = dentistName;
-    }
 
 }

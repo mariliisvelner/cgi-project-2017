@@ -1,9 +1,16 @@
 package com.cgi.dentistapp.dao.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "dentist_visit")
 public class DentistVisitEntity {
 
@@ -20,46 +27,9 @@ public class DentistVisitEntity {
     @Column(name = "visit_date_time")
     private Timestamp visitDateTime;
 
-    public Timestamp getVisitDateTime() {
-        return visitDateTime;
-    }
-
-    public void setVisitDateTime(Timestamp visitDateTime) {
+    public DentistVisitEntity(String dentistName, String physicianName, Timestamp visitDateTime) {
+        this.dentistName = dentistName;
+        this.physicianName = physicianName;
         this.visitDateTime = visitDateTime;
     }
-
-    public DentistVisitEntity() {
-    }
-
-    public DentistVisitEntity(String dentistName, String physicianName, Timestamp visitDateTime) {
-        this.setDentistName(dentistName);
-        this.setPhysicianName(physicianName);
-        this.setVisitDateTime(visitDateTime);
-    }
-
-    public String getDentistName() {
-        return dentistName;
-    }
-
-    public void setDentistName(String dentistName) {
-        this.dentistName = dentistName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
-    public String getPhysicianName() {
-        return physicianName;
-    }
-
-    public void setPhysicianName(String physicianName) {
-        this.physicianName = physicianName;
-    }
-
 }
