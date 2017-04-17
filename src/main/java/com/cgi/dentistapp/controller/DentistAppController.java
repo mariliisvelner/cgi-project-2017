@@ -1,6 +1,6 @@
 package com.cgi.dentistapp.controller;
 
-import com.cgi.dentistapp.FamilyPhysician;
+import com.cgi.dentistapp.visits.FamilyPhysician;
 import com.cgi.dentistapp.dto.DentistVisitDTO;
 import com.cgi.dentistapp.dto.DetailedViewDTO;
 import com.cgi.dentistapp.dto.SearchQueryDTO;

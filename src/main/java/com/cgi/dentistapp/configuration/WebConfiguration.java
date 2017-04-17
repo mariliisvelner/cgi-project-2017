@@ -1,12 +1,9 @@
-package com.cgi.dentistapp;
+package com.cgi.dentistapp.configuration;
 
 import org.h2.server.web.WebServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.context.support.ResourceBundleMessageSource;
 
 @Configuration
 public class WebConfiguration {
@@ -17,6 +14,4 @@ public class WebConfiguration {
         registrationBean.addUrlMappings("/console/*");
         return registrationBean;
     }
-
-
 }

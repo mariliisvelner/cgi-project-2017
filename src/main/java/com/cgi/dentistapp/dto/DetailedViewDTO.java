@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DetailedViewDTO {
+
     private Long id;
 
     @Size(min = 11, max = 11)

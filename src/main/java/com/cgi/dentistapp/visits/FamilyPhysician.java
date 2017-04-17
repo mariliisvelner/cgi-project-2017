@@ -1,4 +1,4 @@
-package com.cgi.dentistapp;
+package com.cgi.dentistapp.visits;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

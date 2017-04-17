@@ -33,5 +33,4 @@ public class DentistVisitDTO {
     @NotNull
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
     private LocalDateTime visitEndDateTime;
-
 }

@@ -42,7 +42,7 @@
                         <label class="col-form-label col-sm-2" for="physicianName" th:text="#{physician.name}"></label>
                         <div class="col-sm-10">
                             <select class="form-control" th:field="*{physicianName}" id="physicianName">
-                                <!--/*@thymesVar id="familyPhysicians" type="List<com.cgi.dentistapp.FamilyPhysician>"*/-->
+                                <!--/*@thymesVar id="familyPhysicians" type="List<com.cgi.dentistapp.visits.FamilyPhysician>"*/-->
                                 <option th:each="familyPhysician : ${familyPhysicians}"
                                         th:value="${familyPhysician.getFullName()}"
                                         th:text="${familyPhysician.getFullName()}"></option>
