@@ -40,10 +40,17 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-form-label col-sm-2" for="visitDateTime" th:text="#{visiidi.aeg}"></label>
+                <label class="col-form-label col-sm-2" for="visitBeginningDateTime" th:text="#{form.algusaeg}"></label>
                 <div class="col-sm-10">
-                    <input class="form-control" th:field="*{visitDateTime}" id="visitDateTime"
-                           th:value="*{visitDateTime}"/>
+                    <input class="form-control" th:field="*{visitBeginningDateTime}" id="visitBeginningDateTime"
+                           th:value="*{visitBeginningDateTime}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label col-sm-2" for="visitEndDateTime" th:text="#{form.loppaeg}"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" th:field="*{visitEndDateTime}" id="visitEndDateTime"
+                           th:value="*{visitEndDateTime}"/>
                 </div>
             </div>
             <div class="form-group">

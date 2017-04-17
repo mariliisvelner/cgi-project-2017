@@ -24,12 +24,19 @@ public class DentistVisitEntity {
     @Column(name = "physician_name")
     private String physicianName;
 
-    @Column(name = "visit_date_time")
-    private Timestamp visitDateTime;
+    @Column(name = "visit_beginning_date_time")
+    private Timestamp visitBeginningDateTime;
 
-    public DentistVisitEntity(String dentistName, String physicianName, Timestamp visitDateTime) {
+    @Column(name = "visit_end_date_time")
+    private Timestamp visitEndDateTime;
+
+    public DentistVisitEntity(String dentistName,
+                              String physicianName,
+                              Timestamp visitBeginningDateTime,
+                              Timestamp visitEndDateTime) {
         this.dentistName = dentistName;
         this.physicianName = physicianName;
-        this.visitDateTime = visitDateTime;
+        this.visitBeginningDateTime = visitBeginningDateTime;
+        this.visitEndDateTime = visitEndDateTime;
     }
 }

@@ -20,5 +20,8 @@ public class SearchQueryDTO {
     private String physicianName;
 
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
-    private LocalDateTime visitDateTime;
+    private LocalDateTime visitBeginningDateTime;
+
+    @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm")
+    private LocalDateTime visitEndDateTime;
 }

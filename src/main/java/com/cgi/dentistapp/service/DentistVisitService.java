@@ -28,7 +28,8 @@ public class DentistVisitService {
     public void addVisit(DentistVisitDTO dentistVisitDTO) {
         DentistVisitEntity visit = new DentistVisitEntity(dentistVisitDTO.getDentistName(),
                                                           dentistVisitDTO.getPhysicianName(),
-                                                          Timestamp.valueOf(dentistVisitDTO.getVisitDateTime()));
+                                                          Timestamp.valueOf(dentistVisitDTO.getVisitBeginningDateTime()),
+                                                          Timestamp.valueOf(dentistVisitDTO.getVisitEndDateTime()));
         dentistVisitDao.create(visit);
     }
 
@@ -37,7 +38,8 @@ public class DentistVisitService {
                 .map(e -> new DentistVisitDTO(
                         e.getDentistName(),
                         e.getPhysicianName(),
-                        e.getVisitDateTime().toLocalDateTime()
+                        e.getVisitBeginningDateTime().toLocalDateTime(),
+                        e.getVisitEndDateTime().toLocalDateTime()
                 ))
                 .collect(Collectors.toList());
     }
@@ -48,14 +50,16 @@ public class DentistVisitService {
                         e.getId(),
                         e.getDentistName(),
                         e.getPhysicianName(),
-                        e.getVisitDateTime().toLocalDateTime()
+                        e.getVisitBeginningDateTime().toLocalDateTime(),
+                        e.getVisitEndDateTime().toLocalDateTime()
                 ))
                 .collect(Collectors.toList());
     }
 
     public DetailedViewDTO getVisitByID(Long ID){
         DentistVisitEntity entity = dentistVisitDao.getByID(ID);
-        return new DetailedViewDTO(entity.getId(), entity.getDentistName(), entity.getPhysicianName(), entity.getVisitDateTime().toLocalDateTime());
+        return new DetailedViewDTO(entity.getId(), entity.getDentistName(), entity.getPhysicianName(),
+                entity.getVisitBeginningDateTime().toLocalDateTime(), entity.getVisitEndDateTime().toLocalDateTime());
     }
 
     public DetailedViewDTO setVisitByID(DetailedViewDTO dto){

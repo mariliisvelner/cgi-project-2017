@@ -21,13 +21,15 @@
         <br/>
         <table class="table">
             <tr>
-                <th th:text="#{visiidi.aeg}"></th>
+                <th th:text="#{form.algusaeg}"></th>
+                <th th:text="#{form.loppaeg}"></th>
                 <th th:text="#{visits.hambaarst}"></th>
                 <th th:text="#{visits.perearst}"></th>
             </tr>
             <!--/*@thymesVar id="dentistVisitDTOs" type="List<com.cgi.dentistapp.dto.DentistVisitDTO>"*/-->
             <tr th:each="dentistVisitDTO : ${dentistVisitDTOs}">
-                <td th:text="${dentistVisitDTO.getVisitDateTime()}"></td>
+                <td th:text="${dentistVisitDTO.getVisitBeginningDateTime()}"></td>
+                <td th:text="${dentistVisitDTO.getVisitEndDateTime()}"></td>
                 <td th:text="${dentistVisitDTO.getDentistName()}"></td>
                 <td th:text="${dentistVisitDTO.getPhysicianName()}"></td>
             </tr>
@@ -55,9 +57,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label col-sm-2" for="visitDateTime" th:text="#{visiidi.aeg}"></label>
+                        <label class="col-form-label col-sm-2" for="visitBeginningDateTime" th:text="#{form.algusaeg}"></label>
                         <div class="col-sm-10">
-                            <input class="form-control" th:field="*{visitDateTime}" id="visitDateTime"/>
+                            <input class="form-control" th:field="*{visitBeginningDateTime}" id="visitBeginningDateTime"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="visitEndDateTime" th:text="#{form.loppaeg}"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" th:field="*{visitEndDateTime}" id="visitEndDateTime"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -71,14 +79,16 @@
                         <table id="results" class="table table-hover">
                             <thead>
                             <tr>
-                                <th th:text="#{visiidi.aeg}"></th>
+                                <th th:text="#{form.algusaeg}"></th>
+                                <th th:text="#{form.loppaeg}"></th>
                                 <th th:text="#{visits.hambaarst}"></th>
                                 <th th:text="#{visits.perearst}"></th>
                                 <th th:text="#{visits.detailid}"></th>
                             </tr>
                             <!--/*@thymesVar id="searchResult" type="List<com.cgi.dentistapp.dto.SearchQueryResultDTO>"*/-->
                             <tr th:each="result : ${searchResult}">
-                                <td th:text="${result.getVisitDateTime()}"></td>
+                                <td th:text="${result.getVisitBeginningDateTime()}"></td>
+                                <td th:text="${result.getVisitEndDateTime()}"></td>
                                 <td th:text="${result.getDentistName()}"></td>
                                 <td th:text="${result.getPhysicianName()}"></td>
                                 <td>

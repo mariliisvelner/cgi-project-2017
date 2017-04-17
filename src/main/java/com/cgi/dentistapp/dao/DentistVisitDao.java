@@ -34,12 +34,15 @@ public class DentistVisitDao {
                 "SELECT e FROM DentistVisitEntity e " +
                         " WHERE e.dentistName LIKE :dentistName " +
                         " AND e.physicianName LIKE :physicianName " +
-                        " AND (:datetime IS NULL OR e.visitDateTime = :datetime)",
+                        " AND (:beginningDateTime IS NULL OR e.visitBeginningDateTime = :beginningDateTime)" +
+                        " AND (:endDateTime IS NULL OR e.visitEndDateTime = :endDateTime)",
                 DentistVisitEntity.class)
                 .setParameter("dentistName", "%" + searchQueryDTO.getDentistName() + "%")
                 .setParameter("physicianName", "%" + searchQueryDTO.getPhysicianName() + "%")
-                .setParameter("datetime", searchQueryDTO.getVisitDateTime() == null ?
-                        null : Timestamp.valueOf(searchQueryDTO.getVisitDateTime()))
+                .setParameter("beginningDateTime", searchQueryDTO.getVisitBeginningDateTime() == null ?
+                        null : Timestamp.valueOf(searchQueryDTO.getVisitBeginningDateTime()))
+                .setParameter("endDateTime", searchQueryDTO.getVisitEndDateTime() == null ?
+                        null : Timestamp.valueOf(searchQueryDTO.getVisitEndDateTime()))
                 .getResultList();
 
     }
@@ -56,7 +59,8 @@ public class DentistVisitDao {
                 new DentistVisitEntity(dto.getId(),
                         dto.getDentistName(),
                         dto.getPhysicianName(),
-                        Timestamp.valueOf(dto.getVisitDateTime())));
+                        Timestamp.valueOf(dto.getVisitBeginningDateTime()),
+                        Timestamp.valueOf(dto.getVisitEndDateTime())));
     }
 
     public void deleteByID(Long id) {

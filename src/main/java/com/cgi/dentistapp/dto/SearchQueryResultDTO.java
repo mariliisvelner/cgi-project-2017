@@ -17,5 +17,7 @@ public class SearchQueryResultDTO {
 
     private String physicianName;
 
-    private LocalDateTime visitDateTime;
+    private LocalDateTime visitBeginningDateTime;
+
+    private LocalDateTime visitEndDateTime;
 }

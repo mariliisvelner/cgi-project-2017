@@ -78,7 +78,6 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         } else if (visitId.equals("-1")) {
             model.addAttribute("searchResult", dentistVisitService.getSearchResults(searchQuery));
         } else {
-
             model.addAttribute("detailedView", dentistVisitService.getVisitByID(Long.parseLong(visitId)));
             return "visit_details";
         }
@@ -104,7 +103,8 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
                             Long.parseLong(changeVisit),
                             detailedViewDTO.getDentistName(),
                             detailedViewDTO.getPhysicianName(),
-                            detailedViewDTO.getVisitDateTime()
+                            detailedViewDTO.getVisitBeginningDateTime(),
+                            detailedViewDTO.getVisitEndDateTime()
                     )));
             FeedbackUtil.setFeedback(model, FeedbackType.SUCCESS, messageSource.getMessage("visit_details.update.success", null, locale));
             return "visit_details";

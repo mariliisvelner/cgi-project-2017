@@ -39,10 +39,17 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-form-label col-sm-2" for="visitDateTime" th:text="#{visiidi.aeg}"></label>
+                <label class="col-form-label col-sm-2" for="visitBeginningDateTime" th:text="#{form.algusaeg}"></label>
                 <div class="col-sm-10">
-                    <input class="form-control" th:field="*{visitDateTime}" id="visitDateTime"/>
-                    <small th:if="${#fields.hasErrors('visitDateTime')}" th:errors="*{visitDateTime}" class="form-text text-muted"></small>
+                    <input class="form-control" th:field="*{visitBeginningDateTime}" id="visitBeginningDateTime"/>
+                    <small th:if="${#fields.hasErrors('visitBeginningDateTime')}" th:errors="*{visitBeginningDateTime}" class="form-text text-muted"></small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label col-sm-2" for="visitEndDateTime" th:text="#{form.loppaeg}"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" th:field="*{visitEndDateTime}" id="visitEndDateTime"/>
+                    <small th:if="${#fields.hasErrors('visitEndDateTime')}" th:errors="*{visitEndDateTime}" class="form-text text-muted"></small>
                 </div>
             </div>
             <div class="form-group">
