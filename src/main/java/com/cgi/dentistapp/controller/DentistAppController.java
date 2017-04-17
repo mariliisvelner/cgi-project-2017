@@ -2,6 +2,7 @@ package com.cgi.dentistapp.controller;
 
 import com.cgi.dentistapp.dto.DentistVisitDTO;
 import com.cgi.dentistapp.dto.SearchQueryDTO;
+import com.cgi.dentistapp.dto.SearchQueryResultDTO;
 import com.cgi.dentistapp.feedback.FeedbackType;
 import com.cgi.dentistapp.service.DentistVisitService;
 import com.cgi.dentistapp.util.FeedbackUtil;
@@ -74,6 +75,8 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         } else if (visitId.equals("-1")) {
             model.addAttribute("searchResult", dentistVisitService.getSearchResults(searchQuery));
         } else {
+
+            model.addAttribute("searchQueryResult", dentistVisitService.getVisitByID(Long.parseLong(visitId)));
             return "visit_details";
         }
 
@@ -81,4 +84,8 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         return "visits";
     }
 
+    @PostMapping("visit_details")
+    public String showVisitDetails(@ModelAttribute("searchQueryResult")SearchQueryResultDTO searchQueryResultDTO){
+        return "visit_details";
+    }
 }

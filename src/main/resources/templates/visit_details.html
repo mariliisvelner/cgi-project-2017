@@ -14,7 +14,43 @@
     <div th:replace="menu :: main-menu"></div>
     <div class="container">
         <h3>Registreering</h3>
+        <br/>
+        <!--/*@thymesVar id="searchQueryResult" type="com.cgi.dentistapp.dto.SearchQueryResultDTO"*/-->
+        <form class="form-horizontal" th:action="@{/visit_details}" th:object="${searchQueryResult}" method="post">
+            <div class="form-group">
+                <label class="col-form-label col-sm-2" for="dentistName" th:text="#{hambaarsti.nimi}"></label>
+                <div class="col-sm-10">
+                    <input maxlength="50" class="form-control" type="text" th:field="*{dentistName}" id="dentistName"
+                           th:value="*{dentistName}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label col-sm-2" for="physicianName" th:text="#{perearsti.nimi}"></label>
+                <div class="col-sm-10">
+                    <select class="form-control" th:field="*{physicianName}" id="physicianName"
+                            th:value="*{physicianName}">
+                        <option value=""></option>
+                        <option value="Perearst 1">Perearst 1</option>
+                        <option value="Perearst 2">Perearst 2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-form-label col-sm-2" for="visitDateTime" th:text="#{visiidi.aeg}"></label>
+                <div class="col-sm-10">
+                    <input class="form-control" th:field="*{visitDateTime}" id="visitDateTime"
+                           th:value="*{visitDateTime}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <button id="insert" name="change" type="submit" class="btn btn-default" th:value="${searchQueryResult.getId()}" th:text="#{visit_details.muuda}"></button>
+                </div>
+            </div>
+            <!--/*@thymesVar id="feedbackList" type="List<com.cgi.dentistapp.feedback.Feedback>"*/-->
+            <div th:replace="feedback :: feedback-messages (feedbackList=${feedbackList})"></div>
 
+        </form>
     </div>
 </div>
 </body>
