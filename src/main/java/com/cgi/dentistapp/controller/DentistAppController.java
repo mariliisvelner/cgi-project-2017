@@ -47,13 +47,16 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
 
     @PostMapping("/")
     public String postRegisterForm(@Valid DentistVisitDTO dentistVisitDTO,
-                                   BindingResult bindingResult) {
+                                   BindingResult bindingResult,
+                                   Model model,
+                                   Locale locale) {
         if (bindingResult.hasErrors()) {
             return "form";
         }
 
         dentistVisitService.addVisit(dentistVisitDTO);
-        return "redirect:/results";
+        FeedbackUtil.setFeedback(model, FeedbackType.SUCCESS, messageSource.getMessage("form.submit.success", null, locale));
+        return "form";
     }
 
     @GetMapping("visits")
@@ -88,11 +91,14 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
     public String showVisitDetails(@ModelAttribute("detailedView") @Valid DetailedViewDTO detailedViewDTO,
                                    BindingResult bindingResult,
                                    @RequestParam(value = "change", defaultValue = "-1") String changeVisit,
+                                   @RequestParam(value = "delete", defaultValue = "-1") String deleteVisit,
                                    Model model,
                                    Locale locale) {
         if (bindingResult.hasErrors()) {
             FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("visits.error", null, locale));
-        } else if (!changeVisit.equals("-1")) {
+            return "visit_details";
+        }
+        if (!changeVisit.equals("-1")) {
             model.addAttribute("detailedView", dentistVisitService.setVisitByID(
                     new DetailedViewDTO(
                             Long.parseLong(changeVisit),
@@ -100,6 +106,15 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
                             detailedViewDTO.getPhysicianName(),
                             detailedViewDTO.getVisitDateTime()
                     )));
+            FeedbackUtil.setFeedback(model, FeedbackType.SUCCESS, messageSource.getMessage("visit_details.update.success", null, locale));
+            return "visit_details";
+        }
+
+        if (!deleteVisit.equals("-1")){
+            dentistVisitService.deleteByID(Long.parseLong(deleteVisit));
+            model.addAttribute("dentistVisitDTOs", dentistVisitService.listVisits());
+            model.addAttribute("searchQuery", new SearchQueryDTO());
+            return "visits";
         }
         return "visit_details";
     }
