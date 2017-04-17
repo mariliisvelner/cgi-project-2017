@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="et" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dentist App</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<div th:fragment="feedback-messages (feedbackList)" th:each="feedback : ${feedbackList}">
+    <div class="alert" th:text="${feedback.message}" th:classappend="${feedback.cssClass}"></div>
+</div>
+
+</body>
+</html>
