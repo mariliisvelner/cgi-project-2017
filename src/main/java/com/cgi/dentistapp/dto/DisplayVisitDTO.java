@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The object which is used to display visits in the visits page.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

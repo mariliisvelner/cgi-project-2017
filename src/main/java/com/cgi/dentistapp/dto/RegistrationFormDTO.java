@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * Created by serkp on 2.03.2017.
+ * The object which is used to register new visits in the form page.
  */
 @Data
 @NoArgsConstructor

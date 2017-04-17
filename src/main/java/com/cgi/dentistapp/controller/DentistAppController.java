@@ -32,6 +32,8 @@ import java.util.Locale;
 public class DentistAppController extends WebMvcConfigurerAdapter {
     private final MessageSource messageSource;
     private final DentistVisitService dentistVisitService;
+
+    // This list is for populating the family physician name dropdown lists in the front-end
     private final List<FamilyPhysician> familyPhysicians = Arrays.asList(
             new FamilyPhysician("John", "Doe"),
             new FamilyPhysician("Jane", "Doe")
@@ -59,15 +61,18 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         if (bindingResult.hasErrors()) {
             return "form";
         }
+        // If the entered beginning datetime is after the entered end datetime, display an error message
         if (registrationFormDTO.getVisitBeginningDateTime().isAfter(registrationFormDTO.getVisitEndDateTime())) {
             FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("form.submit.faulty.dates", null, locale));
             return "form";
         }
+        // If there are more than zero overlapping registrations with the entered registration, display an error message
         if (dentistVisitService.getOverlapCount(registrationFormDTO) > 0) {
             FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("form.submit.overlap.fail", null, locale));
             return "form";
         }
 
+        // In case of no errors, add a new registration to the database and display success message
         dentistVisitService.addVisit(registrationFormDTO);
         FeedbackUtil.setFeedback(model, FeedbackType.SUCCESS, messageSource.getMessage("form.submit.success", null, locale));
         return "form";
@@ -77,6 +82,8 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
     public String showVisits(Model model,
                              @ModelAttribute("searchQuery") SearchQueryDTO dto) {
         model.addAttribute("familyPhysicians", familyPhysicians);
+
+        // All registrations are shown on the visits page
         model.addAttribute("displayVisitDTOs", dentistVisitService.listVisits());
         return "visits";
     }
@@ -92,8 +99,10 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         if (bindingResult.hasErrors()) {
             FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("visits.error", null, locale));
         } else if (visitId.equals("-1")) {
+            // If the visitId is -1, then search results are returned
             model.addAttribute("searchResult", dentistVisitService.getSearchResults(searchQuery));
         } else {
+            // Otherwise, visitId marks a registration's ID and the detailed view is displayed
             model.addAttribute("detailedView", dentistVisitService.getVisitByID(Long.parseLong(visitId)));
             return "visit_details";
         }
@@ -117,6 +126,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
             FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("visits.error", null, locale));
             return "visit_details";
         }
+        // changeVisit is not -1 if the "Muuda" button was clicked and therefore has the value of the registration's ID
         if (!changeVisit.equals("-1")) {
             model.addAttribute("detailedView", dentistVisitService.update(
                     new DetailedViewDTO(
@@ -132,6 +142,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
             return "visit_details";
         }
 
+        // deleteVisit is not -1 if the "Kustuta" button was clicked and therefore has the value of the registration's ID
         if (!deleteVisit.equals("-1")) {
             dentistVisitService.deleteByID(Long.parseLong(deleteVisit));
             model.addAttribute("displayVisitDTOs", dentistVisitService.listVisits());

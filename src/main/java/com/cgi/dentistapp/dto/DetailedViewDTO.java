@@ -10,6 +10,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+/**
+ * The object which is used to display and edit visits in the visit_details page.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
