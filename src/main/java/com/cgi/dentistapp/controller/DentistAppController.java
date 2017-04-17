@@ -1,7 +1,7 @@
 package com.cgi.dentistapp.controller;
 
+import com.cgi.dentistapp.dto.RegistrationFormDTO;
 import com.cgi.dentistapp.visits.FamilyPhysician;
-import com.cgi.dentistapp.dto.DentistVisitDTO;
 import com.cgi.dentistapp.dto.DetailedViewDTO;
 import com.cgi.dentistapp.dto.SearchQueryDTO;
 import com.cgi.dentistapp.feedback.FeedbackType;
@@ -44,13 +44,13 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
     }
 
     @GetMapping("/")
-    public String showRegisterForm(DentistVisitDTO dentistVisitDTO, Model model) {
+    public String showRegisterForm(RegistrationFormDTO registrationFormDTO, Model model) {
         model.addAttribute("familyPhysicians", familyPhysicians);
         return "form";
     }
 
     @PostMapping("/")
-    public String postRegisterForm(@Valid DentistVisitDTO dentistVisitDTO,
+    public String postRegisterForm(@Valid RegistrationFormDTO registrationFormDTO,
                                    BindingResult bindingResult,
                                    Model model,
                                    Locale locale) {
@@ -59,16 +59,16 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         if (bindingResult.hasErrors()) {
             return "form";
         }
-        if (dentistVisitDTO.getVisitBeginningDateTime().isAfter(dentistVisitDTO.getVisitEndDateTime())) {
+        if (registrationFormDTO.getVisitBeginningDateTime().isAfter(registrationFormDTO.getVisitEndDateTime())) {
             FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("form.submit.faulty.dates", null, locale));
             return "form";
         }
-        if (dentistVisitService.getOverlapCount(dentistVisitDTO) > 0) {
+        if (dentistVisitService.getOverlapCount(registrationFormDTO) > 0) {
             FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("form.submit.overlap.fail", null, locale));
             return "form";
         }
 
-        dentistVisitService.addVisit(dentistVisitDTO);
+        dentistVisitService.addVisit(registrationFormDTO);
         FeedbackUtil.setFeedback(model, FeedbackType.SUCCESS, messageSource.getMessage("form.submit.success", null, locale));
         return "form";
     }
@@ -77,7 +77,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
     public String showVisits(Model model,
                              @ModelAttribute("searchQuery") SearchQueryDTO dto) {
         model.addAttribute("familyPhysicians", familyPhysicians);
-        model.addAttribute("dentistVisitDTOs", dentistVisitService.listVisits());
+        model.addAttribute("displayVisitDTOs", dentistVisitService.listVisits());
         return "visits";
     }
 
@@ -98,7 +98,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
             return "visit_details";
         }
 
-        model.addAttribute("dentistVisitDTOs", dentistVisitService.listVisits());
+        model.addAttribute("displayVisitDTOs", dentistVisitService.listVisits());
         return "visits";
     }
 
@@ -134,7 +134,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
 
         if (!deleteVisit.equals("-1")) {
             dentistVisitService.deleteByID(Long.parseLong(deleteVisit));
-            model.addAttribute("dentistVisitDTOs", dentistVisitService.listVisits());
+            model.addAttribute("displayVisitDTOs", dentistVisitService.listVisits());
             model.addAttribute("searchQuery", new SearchQueryDTO());
             return "visits";
         }

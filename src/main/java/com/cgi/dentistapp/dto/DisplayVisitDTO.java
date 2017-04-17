@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchQueryResultDTO {
+public class DisplayVisitDTO {
 
     private Long id;
 
@@ -19,7 +17,7 @@ public class SearchQueryResultDTO {
 
     private String physicianName;
 
-    private LocalDateTime visitBeginningDateTime;
+    private String visitBeginningDateTime;
 
-    private LocalDateTime visitEndDateTime;
+    private String visitEndDateTime;
 }

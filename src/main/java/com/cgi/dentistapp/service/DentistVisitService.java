@@ -2,10 +2,11 @@ package com.cgi.dentistapp.service;
 
 import com.cgi.dentistapp.dao.DentistVisitDao;
 import com.cgi.dentistapp.dao.entity.DentistVisitEntity;
-import com.cgi.dentistapp.dto.DentistVisitDTO;
+import com.cgi.dentistapp.dto.RegistrationFormDTO;
 import com.cgi.dentistapp.dto.DetailedViewDTO;
 import com.cgi.dentistapp.dto.SearchQueryDTO;
-import com.cgi.dentistapp.dto.SearchQueryResultDTO;
+import com.cgi.dentistapp.dto.DisplayVisitDTO;
+import com.cgi.dentistapp.util.DateTimeUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,40 +22,42 @@ import java.util.stream.Collectors;
 public class DentistVisitService {
     private final DentistVisitDao dentistVisitDao;
 
-    public void addVisit(DentistVisitDTO dentistVisitDTO) {
+    public void addVisit(RegistrationFormDTO registrationFormDTO) {
         DentistVisitEntity visit = new DentistVisitEntity(
-                dentistVisitDTO.getNid(),
-                dentistVisitDTO.getDentistName(),
-                dentistVisitDTO.getPhysicianName(),
-                Timestamp.valueOf(dentistVisitDTO.getVisitBeginningDateTime()),
-                Timestamp.valueOf(dentistVisitDTO.getVisitEndDateTime()));
+                registrationFormDTO.getNid(),
+                registrationFormDTO.getDentistName(),
+                registrationFormDTO.getPhysicianName(),
+                Timestamp.valueOf(registrationFormDTO.getVisitBeginningDateTime()),
+                Timestamp.valueOf(registrationFormDTO.getVisitEndDateTime()));
         dentistVisitDao.create(visit);
     }
 
-    public List<DentistVisitDTO> listVisits() {
+    public List<DisplayVisitDTO> listVisits() {
         return dentistVisitDao.getAllVisits().stream()
-                .map(e -> new DentistVisitDTO(
-                        e.getNid(),
-                        e.getDentistName(),
-                        e.getPhysicianName(),
-                        e.getVisitBeginningDateTime().toLocalDateTime(),
-                        e.getVisitEndDateTime().toLocalDateTime()
-                ))
-                .collect(Collectors.toList());
-    }
-
-    public List<SearchQueryResultDTO> getSearchResults(SearchQueryDTO searchQueryDTO) {
-        return dentistVisitDao.getSearchResults(searchQueryDTO).stream()
-                .map(e -> new SearchQueryResultDTO(
+                .map(e -> new DisplayVisitDTO(
                         e.getId(),
                         e.getNid(),
                         e.getDentistName(),
                         e.getPhysicianName(),
-                        e.getVisitBeginningDateTime().toLocalDateTime(),
-                        e.getVisitEndDateTime().toLocalDateTime()
+                        DateTimeUtil.toString(e.getVisitBeginningDateTime().toLocalDateTime()),
+                        DateTimeUtil.toString(e.getVisitEndDateTime().toLocalDateTime())
                 ))
                 .collect(Collectors.toList());
     }
+
+    public List<DisplayVisitDTO> getSearchResults(SearchQueryDTO searchQueryDTO) {
+        return dentistVisitDao.getSearchResults(searchQueryDTO).stream()
+                .map(e -> new DisplayVisitDTO(
+                        e.getId(),
+                        e.getNid(),
+                        e.getDentistName(),
+                        e.getPhysicianName(),
+                        DateTimeUtil.toString(e.getVisitBeginningDateTime().toLocalDateTime()),
+                        DateTimeUtil.toString(e.getVisitEndDateTime().toLocalDateTime())
+                ))
+                .collect(Collectors.toList());
+    }
+
 
     public DetailedViewDTO getVisitByID(Long ID) {
         DentistVisitEntity entity = dentistVisitDao.getByID(ID);
@@ -64,7 +67,8 @@ public class DentistVisitService {
                 entity.getDentistName(),
                 entity.getPhysicianName(),
                 entity.getVisitBeginningDateTime().toLocalDateTime(),
-                entity.getVisitEndDateTime().toLocalDateTime());
+                entity.getVisitEndDateTime().toLocalDateTime()
+        );
     }
 
     public DetailedViewDTO update(DetailedViewDTO dto) {
@@ -76,9 +80,12 @@ public class DentistVisitService {
         dentistVisitDao.deleteByID(id);
     }
 
-    public long getOverlapCount(DentistVisitDTO dto) {
-        return dentistVisitDao.countOverlaps(Timestamp.valueOf(dto.getVisitBeginningDateTime()),
+    public long getOverlapCount(RegistrationFormDTO dto) {
+        return dentistVisitDao.countOverlaps(
+                Timestamp.valueOf(dto.getVisitBeginningDateTime()),
                 Timestamp.valueOf(dto.getVisitEndDateTime()),
-                dto.getDentistName());
+                dto.getDentistName(),
+                dto.getNid()
+        );
     }
 }

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DentistVisitDTO {
+public class RegistrationFormDTO {
 
     @Size(min = 11, max = 11)
     private String nid;

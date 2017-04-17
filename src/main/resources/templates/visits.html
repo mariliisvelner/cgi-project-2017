@@ -27,13 +27,13 @@
                 <th th:text="#{visits.dentist}"></th>
                 <th th:text="#{visits.physician}"></th>
             </tr>
-            <!--/*@thymesVar id="dentistVisitDTOs" type="List<com.cgi.dentistapp.dto.DentistVisitDTO>"*/-->
-            <tr th:each="dentistVisitDTO : ${dentistVisitDTOs}">
-                <td th:text="${dentistVisitDTO.getVisitBeginningDateTime()}"></td>
-                <td th:text="${dentistVisitDTO.getVisitEndDateTime()}"></td>
-                <td th:text="${dentistVisitDTO.getNid()}"></td>
-                <td th:text="${dentistVisitDTO.getDentistName()}"></td>
-                <td th:text="${dentistVisitDTO.getPhysicianName()}"></td>
+            <!--/*@thymesVar id="displayVisitDTOs" type="List<com.cgi.dentistapp.dto.DisplayVisitDTO>"*/-->
+            <tr th:each="displayVisitDTO : ${displayVisitDTOs}">
+                <td th:text="${displayVisitDTO.getVisitBeginningDateTime()}"></td>
+                <td th:text="${displayVisitDTO.getVisitEndDateTime()}"></td>
+                <td th:text="${displayVisitDTO.getNid()}"></td>
+                <td th:text="${displayVisitDTO.getDentistName()}"></td>
+                <td th:text="${displayVisitDTO.getPhysicianName()}"></td>
             </tr>
         </table>
         <br/>
@@ -95,7 +95,7 @@
                                 <th th:text="#{visits.physician}"></th>
                                 <th th:text="#{visits.details}"></th>
                             </tr>
-                            <!--/*@thymesVar id="searchResult" type="List<com.cgi.dentistapp.dto.SearchQueryResultDTO>"*/-->
+                            <!--/*@thymesVar id="searchResult" type="List<com.cgi.dentistapp.dto.DisplayVisitDTO>"*/-->
                             <tr th:each="result : ${searchResult}">
                                 <td th:text="${result.getVisitBeginningDateTime()}"></td>
                                 <td th:text="${result.getVisitEndDateTime()}"></td>
