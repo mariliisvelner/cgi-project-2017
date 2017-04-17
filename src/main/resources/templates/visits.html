@@ -82,8 +82,7 @@
                                 <td th:text="${result.getDentistName()}"></td>
                                 <td th:text="${result.getPhysicianName()}"></td>
                                 <td>
-                                    <button class="btn btn-danger" name="visit-id" type="submit" th:value="${result.getId()}">Vaata
-                                    </button>
+                                    <button class="btn btn-danger" name="visit-id" type="submit" th:value="${result.getId()}" th:text="#{visits.vaata}"></button>
                                 </td>
                             </tr>
                             </thead>
