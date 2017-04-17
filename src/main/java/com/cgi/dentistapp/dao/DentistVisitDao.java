@@ -66,4 +66,16 @@ public class DentistVisitDao {
     public void deleteByID(Long id) {
         entityManager.remove(entityManager.find(DentistVisitEntity.class, id));
     }
+
+    public long countOverlaps(Timestamp beginningDateTime, Timestamp endDateTime, String dentistName) {
+        return entityManager.createQuery(
+                "SELECT COUNT (e) FROM DentistVisitEntity e " +
+                        " WHERE ((e.visitBeginningDateTime BETWEEN :beginningDateTime AND :endDateTime) " +
+                        " OR (e.visitEndDateTime BETWEEN :beginningDateTime AND :endDateTime))" +
+                        " AND e.dentistName = :dentistName", Long.class)
+                .setParameter("beginningDateTime", beginningDateTime)
+                .setParameter("endDateTime", endDateTime)
+                .setParameter("dentistName", dentistName)
+                .getSingleResult();
+    }
 }

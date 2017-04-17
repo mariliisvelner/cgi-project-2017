@@ -53,6 +53,14 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         if (bindingResult.hasErrors()) {
             return "form";
         }
+        if (dentistVisitDTO.getVisitBeginningDateTime().isAfter(dentistVisitDTO.getVisitEndDateTime())){
+            FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("form.submit.faulty.dates", null, locale));
+            return "form";
+        }
+        if (dentistVisitService.getOverlapCount(dentistVisitDTO) > 0){
+            FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("form.submit.overlap.fail", null, locale));
+            return "form";
+        }
 
         dentistVisitService.addVisit(dentistVisitDTO);
         FeedbackUtil.setFeedback(model, FeedbackType.SUCCESS, messageSource.getMessage("form.submit.success", null, locale));

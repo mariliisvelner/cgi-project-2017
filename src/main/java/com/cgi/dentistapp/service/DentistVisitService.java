@@ -27,13 +27,13 @@ public class DentistVisitService {
 
     public void addVisit(DentistVisitDTO dentistVisitDTO) {
         DentistVisitEntity visit = new DentistVisitEntity(dentistVisitDTO.getDentistName(),
-                                                          dentistVisitDTO.getPhysicianName(),
-                                                          Timestamp.valueOf(dentistVisitDTO.getVisitBeginningDateTime()),
-                                                          Timestamp.valueOf(dentistVisitDTO.getVisitEndDateTime()));
+                dentistVisitDTO.getPhysicianName(),
+                Timestamp.valueOf(dentistVisitDTO.getVisitBeginningDateTime()),
+                Timestamp.valueOf(dentistVisitDTO.getVisitEndDateTime()));
         dentistVisitDao.create(visit);
     }
 
-    public List<DentistVisitDTO> listVisits () {
+    public List<DentistVisitDTO> listVisits() {
         return dentistVisitDao.getAllVisits().stream()
                 .map(e -> new DentistVisitDTO(
                         e.getDentistName(),
@@ -44,7 +44,7 @@ public class DentistVisitService {
                 .collect(Collectors.toList());
     }
 
-    public List<SearchQueryResultDTO> getSearchResults(SearchQueryDTO searchQueryDTO){
+    public List<SearchQueryResultDTO> getSearchResults(SearchQueryDTO searchQueryDTO) {
         return dentistVisitDao.getSearchResults(searchQueryDTO).stream()
                 .map(e -> new SearchQueryResultDTO(
                         e.getId(),
@@ -56,18 +56,26 @@ public class DentistVisitService {
                 .collect(Collectors.toList());
     }
 
-    public DetailedViewDTO getVisitByID(Long ID){
+    public DetailedViewDTO getVisitByID(Long ID) {
         DentistVisitEntity entity = dentistVisitDao.getByID(ID);
         return new DetailedViewDTO(entity.getId(), entity.getDentistName(), entity.getPhysicianName(),
                 entity.getVisitBeginningDateTime().toLocalDateTime(), entity.getVisitEndDateTime().toLocalDateTime());
     }
 
-    public DetailedViewDTO setVisitByID(DetailedViewDTO dto){
+    public DetailedViewDTO setVisitByID(DetailedViewDTO dto) {
         dentistVisitDao.setByID(dto);
         return dto;
     }
 
-    public void deleteByID(Long id){
+    public void deleteByID(Long id) {
         dentistVisitDao.deleteByID(id);
     }
+
+    public long getOverlapCount(DentistVisitDTO dto) {
+        return dentistVisitDao.countOverlaps(Timestamp.valueOf(dto.getVisitBeginningDateTime()),
+                Timestamp.valueOf(dto.getVisitEndDateTime()),
+                dto.getDentistName());
+    }
+
+
 }
