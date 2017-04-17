@@ -1,8 +1,8 @@
 package com.cgi.dentistapp.controller;
 
 import com.cgi.dentistapp.dto.DentistVisitDTO;
+import com.cgi.dentistapp.dto.DetailedViewDTO;
 import com.cgi.dentistapp.dto.SearchQueryDTO;
-import com.cgi.dentistapp.dto.SearchQueryResultDTO;
 import com.cgi.dentistapp.feedback.FeedbackType;
 import com.cgi.dentistapp.service.DentistVisitService;
 import com.cgi.dentistapp.util.FeedbackUtil;
@@ -76,7 +76,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
             model.addAttribute("searchResult", dentistVisitService.getSearchResults(searchQuery));
         } else {
 
-            model.addAttribute("searchQueryResult", dentistVisitService.getVisitByID(Long.parseLong(visitId)));
+            model.addAttribute("detailedView", dentistVisitService.getVisitByID(Long.parseLong(visitId)));
             return "visit_details";
         }
 
@@ -85,7 +85,22 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
     }
 
     @PostMapping("visit_details")
-    public String showVisitDetails(@ModelAttribute("searchQueryResult")SearchQueryResultDTO searchQueryResultDTO){
+    public String showVisitDetails(@ModelAttribute("detailedView") @Valid DetailedViewDTO detailedViewDTO,
+                                   BindingResult bindingResult,
+                                   @RequestParam(value = "change", defaultValue = "-1") String changeVisit,
+                                   Model model,
+                                   Locale locale) {
+        if (bindingResult.hasErrors()) {
+            FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("visits.error", null, locale));
+        } else if (!changeVisit.equals("-1")) {
+            model.addAttribute("detailedView", dentistVisitService.setVisitByID(
+                    new DetailedViewDTO(
+                            Long.parseLong(changeVisit),
+                            detailedViewDTO.getDentistName(),
+                            detailedViewDTO.getPhysicianName(),
+                            detailedViewDTO.getVisitDateTime()
+                    )));
+        }
         return "visit_details";
     }
 }
