@@ -1,5 +1,6 @@
 package com.cgi.dentistapp.controller;
 
+import com.cgi.dentistapp.FamilyPhysician;
 import com.cgi.dentistapp.dto.DentistVisitDTO;
 import com.cgi.dentistapp.dto.DetailedViewDTO;
 import com.cgi.dentistapp.dto.SearchQueryDTO;
@@ -21,6 +22,8 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -29,6 +32,11 @@ import java.util.Locale;
 public class DentistAppController extends WebMvcConfigurerAdapter {
     private final MessageSource messageSource;
     private final DentistVisitService dentistVisitService;
+    private final List<FamilyPhysician> familyPhysicians = Arrays.asList(
+            new FamilyPhysician("John", "Doe"),
+            new FamilyPhysician("Jane", "Doe")
+    );
+
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -36,7 +44,8 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
     }
 
     @GetMapping("/")
-    public String showRegisterForm(DentistVisitDTO dentistVisitDTO) {
+    public String showRegisterForm(DentistVisitDTO dentistVisitDTO, Model model) {
+        model.addAttribute("familyPhysicians", familyPhysicians);
         return "form";
     }
 
@@ -45,6 +54,8 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
                                    BindingResult bindingResult,
                                    Model model,
                                    Locale locale) {
+        model.addAttribute("familyPhysicians", familyPhysicians);
+
         if (bindingResult.hasErrors()) {
             return "form";
         }
@@ -65,6 +76,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
     @GetMapping("visits")
     public String showVisits(Model model,
                              @ModelAttribute("searchQuery") SearchQueryDTO dto) {
+        model.addAttribute("familyPhysicians", familyPhysicians);
         model.addAttribute("dentistVisitDTOs", dentistVisitService.listVisits());
         return "visits";
     }
@@ -75,6 +87,7 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
                                     @RequestParam(value = "visit-id", defaultValue = "-1") String visitId,
                                     Model model,
                                     Locale locale) {
+        model.addAttribute("familyPhysicians", familyPhysicians);
 
         if (bindingResult.hasErrors()) {
             FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("visits.error", null, locale));
@@ -96,6 +109,8 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
                                    @RequestParam(value = "delete", defaultValue = "-1") String deleteVisit,
                                    Model model,
                                    Locale locale) {
+        model.addAttribute("familyPhysicians", familyPhysicians);
+
         if (bindingResult.hasErrors()) {
             detailedViewDTO.setId(Long.parseLong(changeVisit));
             model.addAttribute("detailedView", detailedViewDTO);
