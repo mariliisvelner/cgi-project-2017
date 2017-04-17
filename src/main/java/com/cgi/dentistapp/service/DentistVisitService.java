@@ -3,6 +3,7 @@ package com.cgi.dentistapp.service;
 import com.cgi.dentistapp.dao.DentistVisitDao;
 import com.cgi.dentistapp.dao.entity.DentistVisitEntity;
 import com.cgi.dentistapp.dto.DentistVisitDTO;
+import com.cgi.dentistapp.dto.DetailedViewDTO;
 import com.cgi.dentistapp.dto.SearchQueryDTO;
 import com.cgi.dentistapp.dto.SearchQueryResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +53,13 @@ public class DentistVisitService {
                 .collect(Collectors.toList());
     }
 
-    public SearchQueryResultDTO getVisitByID(Long ID){
+    public DetailedViewDTO getVisitByID(Long ID){
         DentistVisitEntity entity = dentistVisitDao.getByID(ID);
-        return new SearchQueryResultDTO(entity.getId(), entity.getDentistName(), entity.getPhysicianName(), entity.getVisitDateTime().toLocalDateTime());
+        return new DetailedViewDTO(entity.getId(), entity.getDentistName(), entity.getPhysicianName(), entity.getVisitDateTime().toLocalDateTime());
+    }
+
+    public DetailedViewDTO setVisitByID(DetailedViewDTO dto){
+        dentistVisitDao.setByID(dto);
+        return dto;
     }
 }

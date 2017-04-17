@@ -1,7 +1,10 @@
 package com.cgi.dentistapp.dao;
 
 import com.cgi.dentistapp.dao.entity.DentistVisitEntity;
+import com.cgi.dentistapp.dto.DetailedViewDTO;
 import com.cgi.dentistapp.dto.SearchQueryDTO;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -48,5 +51,14 @@ public class DentistVisitDao {
                 "WHERE e.id = :id")
                 .setParameter("id", id)
                 .getSingleResult();
+    }
+
+    public void setByID(DetailedViewDTO dto){
+        entityManager.merge(
+                new DentistVisitEntity(dto.getId(),
+                        dto.getDentistName(),
+                        dto.getPhysicianName(),
+                        Timestamp.valueOf(dto.getVisitDateTime())));
+
     }
 }
