@@ -17,15 +17,15 @@
 <div class="wrapper">
     <div th:replace="menu :: main-menu"></div>
     <div class="container">
-        <h3>Registreeringud</h3>
+        <h3 th:text="#{visits.heading}"></h3>
         <br/>
         <table class="table">
             <tr>
-                <th th:text="#{form.algusaeg}"></th>
-                <th th:text="#{form.loppaeg}"></th>
-                <th th:text="#{isikukood}"></th>
-                <th th:text="#{visits.hambaarst}"></th>
-                <th th:text="#{visits.perearst}"></th>
+                <th th:text="#{beginning.datetime}"></th>
+                <th th:text="#{end.datetime}"></th>
+                <th th:text="#{nid}"></th>
+                <th th:text="#{visits.dentist}"></th>
+                <th th:text="#{visits.physician}"></th>
             </tr>
             <!--/*@thymesVar id="dentistVisitDTOs" type="List<com.cgi.dentistapp.dto.DentistVisitDTO>"*/-->
             <tr th:each="dentistVisitDTO : ${dentistVisitDTOs}">
@@ -37,25 +37,25 @@
             </tr>
         </table>
         <br/>
-        <h3>Otsing</h3>
+        <h3 th:text="#{visits.search.heading}"></h3>
         <!--/*@thymesVar id="searchQuery" type="com.cgi.dentistapp.dto.SearchQueryDTO"*/-->
         <form class="form-horizontal" th:action="@{/visits}" th:object="${searchQuery}" method="post">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-form-label col-sm-2" for="dentistName" th:text="#{hambaarsti.nimi}"></label>
+                        <label class="col-form-label col-sm-2" for="dentistName" th:text="#{dentist.name}"></label>
                         <div class="col-sm-10">
                             <input maxlength="50" class="form-control" type="text" th:field="*{dentistName}" id="dentistName"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label col-sm-2" for="nid" th:text="#{isikukood}"></label>
+                        <label class="col-form-label col-sm-2" for="nid" th:text="#{nid}"></label>
                         <div class="col-sm-10">
                             <input maxlength="11" class="form-control" type="text" th:field="*{nid}" id="nid"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label col-sm-2" for="physicianName" th:text="#{perearsti.nimi}"></label>
+                        <label class="col-form-label col-sm-2" for="physicianName" th:text="#{physician.name}"></label>
                         <div class="col-sm-10">
                             <select class="form-control" th:field="*{physicianName}" id="physicianName">
                                 <!--/*@thymesVar id="familyPhysicians" type="List<com.cgi.dentistapp.FamilyPhysician>"*/-->
@@ -66,20 +66,20 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label col-sm-2" for="visitBeginningDateTime" th:text="#{form.algusaeg}"></label>
+                        <label class="col-form-label col-sm-2" for="visitBeginningDateTime" th:text="#{beginning.datetime}"></label>
                         <div class="col-sm-10">
                             <input class="form-control" th:field="*{visitBeginningDateTime}" id="visitBeginningDateTime"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label col-sm-2" for="visitEndDateTime" th:text="#{form.loppaeg}"></label>
+                        <label class="col-form-label col-sm-2" for="visitEndDateTime" th:text="#{end.datetime}"></label>
                         <div class="col-sm-10">
                             <input class="form-control" th:field="*{visitEndDateTime}" id="visitEndDateTime"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <input id="insert" type="submit" class="btn btn-danger" th:value="#{visits.otsi}"/>
+                            <input id="insert" type="submit" class="btn btn-danger" th:value="#{visits.search}"/>
                         </div>
                     </div>
                     <!--/*@thymesVar id="feedbackList" type="List<com.cgi.dentistapp.feedback.Feedback>"*/-->
@@ -88,12 +88,12 @@
                         <table id="results" class="table table-hover">
                             <thead>
                             <tr>
-                                <th th:text="#{form.algusaeg}"></th>
-                                <th th:text="#{form.loppaeg}"></th>
-                                <th th:text="#{isikukood}"></th>
-                                <th th:text="#{visits.hambaarst}"></th>
-                                <th th:text="#{visits.perearst}"></th>
-                                <th th:text="#{visits.detailid}"></th>
+                                <th th:text="#{beginning.datetime}"></th>
+                                <th th:text="#{end.datetime}"></th>
+                                <th th:text="#{nid}"></th>
+                                <th th:text="#{visits.dentist}"></th>
+                                <th th:text="#{visits.physician}"></th>
+                                <th th:text="#{visits.details}"></th>
                             </tr>
                             <!--/*@thymesVar id="searchResult" type="List<com.cgi.dentistapp.dto.SearchQueryResultDTO>"*/-->
                             <tr th:each="result : ${searchResult}">
@@ -103,7 +103,7 @@
                                 <td th:text="${result.getDentistName()}"></td>
                                 <td th:text="${result.getPhysicianName()}"></td>
                                 <td>
-                                    <button class="btn btn-danger" name="visit-id" type="submit" th:value="${result.getId()}" th:text="#{visits.vaata}"></button>
+                                    <button class="btn btn-danger" name="visit-id" type="submit" th:value="${result.getId()}" th:text="#{visits.show}"></button>
                                 </td>
                             </tr>
                             </thead>
