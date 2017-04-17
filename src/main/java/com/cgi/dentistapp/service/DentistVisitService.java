@@ -62,4 +62,8 @@ public class DentistVisitService {
         dentistVisitDao.setByID(dto);
         return dto;
     }
+
+    public void deleteByID(Long id){
+        dentistVisitDao.deleteByID(id);
+    }
 }
