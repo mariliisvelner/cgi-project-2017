@@ -50,6 +50,8 @@
                     <input id="insert" type="submit" class="btn btn-default" th:value="#{registreeri.visiidile}"/>
                 </div>
             </div>
+            <!--/*@thymesVar id="feedbackList" type="List<com.cgi.dentistapp.feedback.Feedback>"*/-->
+            <div th:replace="feedback :: feedback-messages (feedbackList=${feedbackList})"></div>
         </form>
     </div>
 </div>
