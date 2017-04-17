@@ -52,5 +52,8 @@ public class DentistVisitService {
                 .collect(Collectors.toList());
     }
 
-
+    public SearchQueryResultDTO getVisitByID(Long ID){
+        DentistVisitEntity entity = dentistVisitDao.getByID(ID);
+        return new SearchQueryResultDTO(entity.getId(), entity.getDentistName(), entity.getPhysicianName(), entity.getVisitDateTime().toLocalDateTime());
+    }
 }

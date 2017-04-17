@@ -42,4 +42,11 @@ public class DentistVisitDao {
                     .getResultList();
         }
     }
+
+    public DentistVisitEntity getByID(Long id){
+        return (DentistVisitEntity) entityManager.createQuery("SELECT e FROM DentistVisitEntity e " +
+                "WHERE e.id = :id")
+                .setParameter("id", id)
+                .getSingleResult();
+    }
 }
