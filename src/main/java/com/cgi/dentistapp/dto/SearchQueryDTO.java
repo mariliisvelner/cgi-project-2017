@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class SearchQueryDTO {
 
+    @Size(max = 11)
+    private String nid;
+
     @Size(max = 50)
     private String dentistName;
 

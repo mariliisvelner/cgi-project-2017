@@ -13,6 +13,8 @@ public class SearchQueryResultDTO {
 
     private Long id;
 
+    private String nid;
+
     private String dentistName;
 
     private String physicianName;

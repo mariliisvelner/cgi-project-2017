@@ -48,11 +48,11 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
         if (bindingResult.hasErrors()) {
             return "form";
         }
-        if (dentistVisitDTO.getVisitBeginningDateTime().isAfter(dentistVisitDTO.getVisitEndDateTime())){
+        if (dentistVisitDTO.getVisitBeginningDateTime().isAfter(dentistVisitDTO.getVisitEndDateTime())) {
             FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("form.submit.faulty.dates", null, locale));
             return "form";
         }
-        if (dentistVisitService.getOverlapCount(dentistVisitDTO) > 0){
+        if (dentistVisitService.getOverlapCount(dentistVisitDTO) > 0) {
             FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("form.submit.overlap.fail", null, locale));
             return "form";
         }
@@ -97,23 +97,27 @@ public class DentistAppController extends WebMvcConfigurerAdapter {
                                    Model model,
                                    Locale locale) {
         if (bindingResult.hasErrors()) {
+            detailedViewDTO.setId(Long.parseLong(changeVisit));
+            model.addAttribute("detailedView", detailedViewDTO);
             FeedbackUtil.setFeedback(model, FeedbackType.ERROR, messageSource.getMessage("visits.error", null, locale));
             return "visit_details";
         }
         if (!changeVisit.equals("-1")) {
-            model.addAttribute("detailedView", dentistVisitService.setVisitByID(
+            model.addAttribute("detailedView", dentistVisitService.update(
                     new DetailedViewDTO(
                             Long.parseLong(changeVisit),
+                            detailedViewDTO.getNid(),
                             detailedViewDTO.getDentistName(),
                             detailedViewDTO.getPhysicianName(),
                             detailedViewDTO.getVisitBeginningDateTime(),
                             detailedViewDTO.getVisitEndDateTime()
-                    )));
+                    ))
+            );
             FeedbackUtil.setFeedback(model, FeedbackType.SUCCESS, messageSource.getMessage("visit_details.update.success", null, locale));
             return "visit_details";
         }
 
-        if (!deleteVisit.equals("-1")){
+        if (!deleteVisit.equals("-1")) {
             dentistVisitService.deleteByID(Long.parseLong(deleteVisit));
             model.addAttribute("dentistVisitDTOs", dentistVisitService.listVisits());
             model.addAttribute("searchQuery", new SearchQueryDTO());

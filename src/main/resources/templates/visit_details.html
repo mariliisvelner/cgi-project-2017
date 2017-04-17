@@ -22,6 +22,13 @@
         <!--/*@thymesVar id="detailedView" type="com.cgi.dentistapp.dto.DetailedViewDTO"*/-->
         <form class="form-horizontal" th:action="@{/visit_details}" th:object="${detailedView}" method="post">
             <div class="form-group">
+                <label class="col-form-label col-sm-2" for="nid" th:text="#{isikukood}"></label>
+                <div class="col-sm-10">
+                    <input maxlength="11" class="form-control" type="text" th:field="*{nid}" id="nid"
+                           th:value="*{nid}"/>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-form-label col-sm-2" for="dentistName" th:text="#{hambaarsti.nimi}"></label>
                 <div class="col-sm-10">
                     <input maxlength="50" class="form-control" type="text" th:field="*{dentistName}" id="dentistName"

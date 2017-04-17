@@ -23,6 +23,7 @@
             <tr>
                 <th th:text="#{form.algusaeg}"></th>
                 <th th:text="#{form.loppaeg}"></th>
+                <th th:text="#{isikukood}"></th>
                 <th th:text="#{visits.hambaarst}"></th>
                 <th th:text="#{visits.perearst}"></th>
             </tr>
@@ -30,6 +31,7 @@
             <tr th:each="dentistVisitDTO : ${dentistVisitDTOs}">
                 <td th:text="${dentistVisitDTO.getVisitBeginningDateTime()}"></td>
                 <td th:text="${dentistVisitDTO.getVisitEndDateTime()}"></td>
+                <td th:text="${dentistVisitDTO.getNid()}"></td>
                 <td th:text="${dentistVisitDTO.getDentistName()}"></td>
                 <td th:text="${dentistVisitDTO.getPhysicianName()}"></td>
             </tr>
@@ -44,6 +46,12 @@
                         <label class="col-form-label col-sm-2" for="dentistName" th:text="#{hambaarsti.nimi}"></label>
                         <div class="col-sm-10">
                             <input maxlength="50" class="form-control" type="text" th:field="*{dentistName}" id="dentistName"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="nid" th:text="#{isikukood}"></label>
+                        <div class="col-sm-10">
+                            <input maxlength="11" class="form-control" type="text" th:field="*{nid}" id="nid"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -81,6 +89,7 @@
                             <tr>
                                 <th th:text="#{form.algusaeg}"></th>
                                 <th th:text="#{form.loppaeg}"></th>
+                                <th th:text="#{isikukood}"></th>
                                 <th th:text="#{visits.hambaarst}"></th>
                                 <th th:text="#{visits.perearst}"></th>
                                 <th th:text="#{visits.detailid}"></th>
@@ -89,6 +98,7 @@
                             <tr th:each="result : ${searchResult}">
                                 <td th:text="${result.getVisitBeginningDateTime()}"></td>
                                 <td th:text="${result.getVisitEndDateTime()}"></td>
+                                <td th:text="${result.getNid()}"></td>
                                 <td th:text="${result.getDentistName()}"></td>
                                 <td th:text="${result.getPhysicianName()}"></td>
                                 <td>

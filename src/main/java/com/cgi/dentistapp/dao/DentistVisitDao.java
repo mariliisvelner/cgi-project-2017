@@ -54,13 +54,17 @@ public class DentistVisitDao {
                 .getSingleResult();
     }
 
-    public void setByID(DetailedViewDTO dto) {
+    public void update(DetailedViewDTO dto) {
         entityManager.merge(
-                new DentistVisitEntity(dto.getId(),
+                new DentistVisitEntity(
+                        dto.getId(),
+                        dto.getNid(),
                         dto.getDentistName(),
                         dto.getPhysicianName(),
                         Timestamp.valueOf(dto.getVisitBeginningDateTime()),
-                        Timestamp.valueOf(dto.getVisitEndDateTime())));
+                        Timestamp.valueOf(dto.getVisitEndDateTime())
+                )
+        );
     }
 
     public void deleteByID(Long id) {

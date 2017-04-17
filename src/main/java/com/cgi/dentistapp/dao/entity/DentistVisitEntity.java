@@ -18,6 +18,9 @@ public class DentistVisitEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "nid")
+    private String nid;
+
     @Column(name = "dentist_name")
     private String dentistName;
 
@@ -30,10 +33,12 @@ public class DentistVisitEntity {
     @Column(name = "visit_end_date_time")
     private Timestamp visitEndDateTime;
 
-    public DentistVisitEntity(String dentistName,
+    public DentistVisitEntity(String nid,
+                              String dentistName,
                               String physicianName,
                               Timestamp visitBeginningDateTime,
                               Timestamp visitEndDateTime) {
+        this.nid = nid;
         this.dentistName = dentistName;
         this.physicianName = physicianName;
         this.visitBeginningDateTime = visitBeginningDateTime;

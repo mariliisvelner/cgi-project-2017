@@ -16,6 +16,9 @@ import java.time.LocalDateTime;
 public class DetailedViewDTO {
     private Long id;
 
+    @Size(min = 11, max = 11)
+    private String nid;
+
     @Size(min = 1, max = 50)
     private String dentistName;
 
