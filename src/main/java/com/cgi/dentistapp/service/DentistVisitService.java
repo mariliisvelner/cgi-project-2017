@@ -6,6 +6,7 @@ import com.cgi.dentistapp.dto.DentistVisitDTO;
 import com.cgi.dentistapp.dto.DetailedViewDTO;
 import com.cgi.dentistapp.dto.SearchQueryDTO;
 import com.cgi.dentistapp.dto.SearchQueryResultDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +17,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DentistVisitService {
 
     private final DentistVisitDao dentistVisitDao;
-
-    @Autowired
-    public DentistVisitService(DentistVisitDao dentistVisitDao) {
-        this.dentistVisitDao = dentistVisitDao;
-    }
 
     public void addVisit(DentistVisitDTO dentistVisitDTO) {
         DentistVisitEntity visit = new DentistVisitEntity(dentistVisitDTO.getDentistName(),

@@ -6,6 +6,7 @@ import com.cgi.dentistapp.dto.SearchQueryDTO;
 import com.cgi.dentistapp.feedback.FeedbackType;
 import com.cgi.dentistapp.service.DentistVisitService;
 import com.cgi.dentistapp.util.FeedbackUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.MessageSource;
@@ -24,16 +25,10 @@ import java.util.Locale;
 
 @Controller
 @EnableAutoConfiguration
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class DentistAppController extends WebMvcConfigurerAdapter {
     private final MessageSource messageSource;
     private final DentistVisitService dentistVisitService;
-
-    @Autowired
-    public DentistAppController(MessageSource messageSource,
-                                DentistVisitService dentistVisitService) {
-        this.messageSource = messageSource;
-        this.dentistVisitService = dentistVisitService;
-    }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
