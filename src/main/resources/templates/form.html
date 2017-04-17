@@ -19,56 +19,68 @@
     <div class="container">
         <h3>Registreeri visiidile</h3>
         <br/>
-        <!--/*@thymesVar id="dentistVisitDTO" type="com.cgi.dentistapp.dto.DentistVisitDTO"*/-->
-        <form class="form-horizontal" action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="post">
-            <div class="form-group">
-                <label class="col-form-label col-sm-2" for="nid" th:text="#{isikukood}"></label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="text" th:field="*{nid}" id="nid"/>
-                    <small th:if="${#fields.hasErrors('nid')}" th:errors="*{nid}" class="form-text text-muted"></small>
-                </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <!--/*@thymesVar id="dentistVisitDTO" type="com.cgi.dentistapp.dto.DentistVisitDTO"*/-->
+                <form class="form-horizontal" action="#" th:action="@{/}" th:object="${dentistVisitDTO}" method="post">
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="nid" th:text="#{isikukood}"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" th:field="*{nid}" id="nid"/>
+                            <small th:if="${#fields.hasErrors('nid')}" th:errors="*{nid}"
+                                   class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="dentistName" th:text="#{hambaarsti.nimi}"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" type="text" th:field="*{dentistName}" id="dentistName"/>
+                            <small th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}"
+                                   class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="physicianName" th:text="#{perearsti.nimi}"></label>
+                        <div class="col-sm-10">
+                            <select class="form-control" th:field="*{physicianName}" id="physicianName">
+                                <!--/*@thymesVar id="familyPhysicians" type="List<com.cgi.dentistapp.FamilyPhysician>"*/-->
+                                <option th:each="familyPhysician : ${familyPhysicians}"
+                                        th:value="${familyPhysician.getFullName()}"
+                                        th:text="${familyPhysician.getFullName()}"></option>
+                            </select>
+                            <small th:if="${#fields.hasErrors('physicianName')}" th:errors="*{physicianName}"
+                                   class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="visitBeginningDateTime"
+                               th:text="#{form.algusaeg}"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" th:field="*{visitBeginningDateTime}"
+                                   id="visitBeginningDateTime"/>
+                            <small th:if="${#fields.hasErrors('visitBeginningDateTime')}"
+                                   th:errors="*{visitBeginningDateTime}" class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="visitEndDateTime" th:text="#{form.loppaeg}"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" th:field="*{visitEndDateTime}" id="visitEndDateTime"/>
+                            <small th:if="${#fields.hasErrors('visitEndDateTime')}" th:errors="*{visitEndDateTime}"
+                                   class="form-text text-muted"></small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <input id="insert" type="submit" class="btn btn-default"
+                                   th:value="#{registreeri.visiidile}"/>
+                        </div>
+                    </div>
+                    <!--/*@thymesVar id="feedbackList" type="List<com.cgi.dentistapp.feedback.Feedback>"*/-->
+                    <div th:replace="feedback :: feedback-messages (feedbackList=${feedbackList})"></div>
+                </form>
             </div>
-            <div class="form-group">
-                <label class="col-form-label col-sm-2" for="dentistName" th:text="#{hambaarsti.nimi}"></label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="text" th:field="*{dentistName}" id="dentistName"/>
-                    <small th:if="${#fields.hasErrors('dentistName')}" th:errors="*{dentistName}" class="form-text text-muted"></small>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-form-label col-sm-2" for="physicianName" th:text="#{perearsti.nimi}"></label>
-                <div class="col-sm-10">
-                    <select class="form-control" th:field="*{physicianName}" id="physicianName">
-                        <!--/*@thymesVar id="familyPhysicians" type="List<com.cgi.dentistapp.FamilyPhysician>"*/-->
-                        <option th:each="familyPhysician : ${familyPhysicians}"
-                                th:value="${familyPhysician.getFullName()}"
-                                th:text="${familyPhysician.getFullName()}"></option>
-                    </select>
-                    <small th:if="${#fields.hasErrors('physicianName')}" th:errors="*{physicianName}" class="form-text text-muted"></small>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-form-label col-sm-2" for="visitBeginningDateTime" th:text="#{form.algusaeg}"></label>
-                <div class="col-sm-10">
-                    <input class="form-control" th:field="*{visitBeginningDateTime}" id="visitBeginningDateTime"/>
-                    <small th:if="${#fields.hasErrors('visitBeginningDateTime')}" th:errors="*{visitBeginningDateTime}" class="form-text text-muted"></small>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-form-label col-sm-2" for="visitEndDateTime" th:text="#{form.loppaeg}"></label>
-                <div class="col-sm-10">
-                    <input class="form-control" th:field="*{visitEndDateTime}" id="visitEndDateTime"/>
-                    <small th:if="${#fields.hasErrors('visitEndDateTime')}" th:errors="*{visitEndDateTime}" class="form-text text-muted"></small>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-10">
-                    <input id="insert" type="submit" class="btn btn-default" th:value="#{registreeri.visiidile}"/>
-                </div>
-            </div>
-            <!--/*@thymesVar id="feedbackList" type="List<com.cgi.dentistapp.feedback.Feedback>"*/-->
-            <div th:replace="feedback :: feedback-messages (feedbackList=${feedbackList})"></div>
-        </form>
+        </div>
     </div>
 </div>
 </body>

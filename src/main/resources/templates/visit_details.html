@@ -19,61 +19,64 @@
     <div class="container">
         <h3>Registreering</h3>
         <br/>
-        <!--/*@thymesVar id="detailedView" type="com.cgi.dentistapp.dto.DetailedViewDTO"*/-->
-        <form class="form-horizontal" th:action="@{/visit_details}" th:object="${detailedView}" method="post">
-            <div class="form-group">
-                <label class="col-form-label col-sm-2" for="nid" th:text="#{isikukood}"></label>
-                <div class="col-sm-10">
-                    <input maxlength="11" class="form-control" type="text" th:field="*{nid}" id="nid"
-                           th:value="*{nid}"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-form-label col-sm-2" for="dentistName" th:text="#{hambaarsti.nimi}"></label>
-                <div class="col-sm-10">
-                    <input maxlength="50" class="form-control" type="text" th:field="*{dentistName}" id="dentistName"
-                           th:value="*{dentistName}"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-form-label col-sm-2" for="physicianName" th:text="#{perearsti.nimi}"></label>
-                <div class="col-sm-10">
-                    <select class="form-control" th:field="*{physicianName}" id="physicianName">
-                        <!--/*@thymesVar id="familyPhysicians" type="List<com.cgi.dentistapp.FamilyPhysician>"*/-->
-                        <option th:each="familyPhysician : ${familyPhysicians}"
-                                th:value="${familyPhysician.getFullName()}"
-                                th:text="${familyPhysician.getFullName()}"></option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-form-label col-sm-2" for="visitBeginningDateTime" th:text="#{form.algusaeg}"></label>
-                <div class="col-sm-10">
-                    <input class="form-control" th:field="*{visitBeginningDateTime}" id="visitBeginningDateTime"
-                           th:value="*{visitBeginningDateTime}"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-form-label col-sm-2" for="visitEndDateTime" th:text="#{form.loppaeg}"></label>
-                <div class="col-sm-10">
-                    <input class="form-control" th:field="*{visitEndDateTime}" id="visitEndDateTime"
-                           th:value="*{visitEndDateTime}"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-10">
-                    <button id="change" name="change" type="submit" class="btn btn-default" th:value="${detailedView.getId()}" th:text="#{visit_details.muuda}"></button>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-10">
-                    <button id="delete" name="delete" type="submit" class="btn btn-danger" th:value="${detailedView.getId()}" th:text="#{visit_details.kustuta}"></button>
-                </div>
-            </div>
-            <!--/*@thymesVar id="feedbackList" type="List<com.cgi.dentistapp.feedback.Feedback>"*/-->
-            <div th:replace="feedback :: feedback-messages (feedbackList=${feedbackList})"></div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <!--/*@thymesVar id="detailedView" type="com.cgi.dentistapp.dto.DetailedViewDTO"*/-->
+                <form class="form-horizontal" th:action="@{/visit_details}" th:object="${detailedView}" method="post">
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="nid" th:text="#{isikukood}"></label>
+                        <div class="col-sm-10">
+                            <input maxlength="11" class="form-control" type="text" th:field="*{nid}" id="nid"
+                                   th:value="*{nid}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="dentistName" th:text="#{hambaarsti.nimi}"></label>
+                        <div class="col-sm-10">
+                            <input maxlength="50" class="form-control" type="text" th:field="*{dentistName}"
+                                   id="dentistName"
+                                   th:value="*{dentistName}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="physicianName" th:text="#{perearsti.nimi}"></label>
+                        <div class="col-sm-10">
+                            <select class="form-control" th:field="*{physicianName}" id="physicianName">
+                                <!--/*@thymesVar id="familyPhysicians" type="List<com.cgi.dentistapp.FamilyPhysician>"*/-->
+                                <option th:each="familyPhysician : ${familyPhysicians}"
+                                        th:value="${familyPhysician.getFullName()}"
+                                        th:text="${familyPhysician.getFullName()}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="visitBeginningDateTime"
+                               th:text="#{form.algusaeg}"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" th:field="*{visitBeginningDateTime}" id="visitBeginningDateTime"
+                                   th:value="*{visitBeginningDateTime}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label col-sm-2" for="visitEndDateTime" th:text="#{form.loppaeg}"></label>
+                        <div class="col-sm-10">
+                            <input class="form-control" th:field="*{visitEndDateTime}" id="visitEndDateTime"
+                                   th:value="*{visitEndDateTime}"/>
+                        </div>
+                    </div>
+                    <div class="btn-toolbar">
+                        <button id="change" name="change" type="submit" class="btn btn-default"
+                                th:value="${detailedView.getId()}" th:text="#{visit_details.muuda}"></button>
+                        <button id="delete" name="delete" type="submit" class="btn btn-danger"
+                                th:value="${detailedView.getId()}" th:text="#{visit_details.kustuta}"></button>
+                    </div>
+                    <br/>
+                    <!--/*@thymesVar id="feedbackList" type="List<com.cgi.dentistapp.feedback.Feedback>"*/-->
+                    <div th:replace="feedback :: feedback-messages (feedbackList=${feedbackList})"></div>
 
-        </form>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 </body>
